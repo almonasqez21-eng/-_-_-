@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>متجر التقنية الشامل</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
+        .btn { background: #27ae60; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%; font-size: 16px; }
+        .btn:hover { background: #219150; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>متجر التقنية</h2>
+    <a href="cart.html" style="text-decoration:none; color:#333;">🛒 السلة (<span id="cart-count">0</span>)</a>
+</header>
+
+<div class="grid" id="product-list"></div>
+
+<script>
+    const products = [
+        {id: 1, name: "سماعات", price: 99, image: "سماعة.jpg"},
+        {id: 2, name: "ماوس", price: 25, image: "ماوس.jpg"},
+        {id: 3, name: "لوحة مفاتيح", price: 120, image: "لوحة مفاتيح.jpg"},
+        {id: 4, name: "شاشة", price: 200, image: "شاشة.jpg"},
+        {id: 5, name: "حامل لابتوب", price: 45, image: "حامل لابتوب.jpg"},
+        {id: 6, name: "ميكروفون", price: 80, image: "مايكروفون.jpg"},
+        {id: 7, name: "كاميرا", price: 60, image: "كاميرة.jpg"},
+        {id: 8, name: "شاحن متنقل", price: 30, image: "شاحن متنقل.jpg"},
+        {id: 9, name: "ساعة ذكية", price: 150, image: "ساعة ذكية.jpg"},
+        {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"}
+    ];
+
+    const productList = document.getElementById('product-list');
+    const cartCountSpan = document.getElementById('cart-count');
+
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartCountSpan.innerText = cart.length;
+    }
+
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        alert(product.name + " أضيفت للسلة!");
+    }
+
+    function renderProducts() {
+        productList.innerHTML = '';
+        products.forEach(p => {
+            productList.innerHTML += `
+                <div class="card">
+                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <h3>${p.name}</h3>
+                    <p>${p.price} دولار</p>
+                    <button class="btn" onclick="addToCart(${p.id})">إضافة للسلة</button>
+                </div>
+            `;
+        });
+    }
+
+    renderProducts();
+    updateCartCount();
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سلة التسوق</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 40px; background: #f9f9f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border-bottom: 1px solid #ddd; padding: 15px; text-align: center; }
+        
+        /* تنسيق الصور في السلة */
+        .cart-img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
+        
+        .total { font-weight: bold; font-size: 1.5em; margin-top: 20px; color: #2c3e50; }
+        .actions { margin-top: 20px; }
+        a { text-decoration: none; color: #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛒 محتويات السلة</h1>
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>الصورة</th>
+                <th>المنتج</th>
+                <th>السعر</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="total" id="total-price">الإجمالي: 0 دولار</div>
+    
+    <div class="actions">
+        <a href="index.html">← العودة للتسوق</a> | 
+        <button onclick="clearCart()" style="background: #e74c3c; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px;">تفريغ السلة</button>
+    </div>
+</div>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const tbody = document.querySelector('#cart-table tbody');
+    let total = 0;
+
+    cart.forEach(item => {
+        // إضافة وسم الصورة داخل الجدول
+        tbody.innerHTML += `
+            <tr>
+                <td><img src="${item.image}" class="cart-img" alt="${item.name}" onerror="this.src='https://via.placeholder.com/50'"></td>
+                <td>${item.name}</td>
+                <td>${item.price} دولار</td>
+            </tr>`;
+        total += item.price;
+    });
+    
+    document.getElementById('total-price').innerText = "الإجمالي: " + total + " دولار";
+
+    function clearCart() {
+        localStorage.removeItem('cart');
+        location.reload();
+    }
+</script>
+</body>
+</html>
