@@ -6,9 +6,9 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 0; }
         
-        /* قسم الصورة الكبيرة (Hero) */
-        .hero { width: 100%; height: 400px; overflow: hidden; margin-bottom: 30px; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        /* الصورة الكبيرة تم تكبيرها لتصبح 500px */
+        .hero { width: 100%; height: 500px; overflow: hidden; margin-bottom: 30px; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
         header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px 5%; margin: 0 5% 30px 5%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
@@ -29,7 +29,7 @@
 
 <!-- الصورة الكبيرة -->
 <div class="hero">
-    <img src="الكبيرة .jpg" alt="عروض التقنية">
+    <img src="hero.jpg" alt="عروض التقنية">
 </div>
 
 <header>
@@ -42,6 +42,7 @@
 </div>
 
 <script>
+    // تم حذف آخر منتجين من القائمة
     const products = [
         {id: 1, name: "سماعات", price: 99, image: "سماعة.jpg"},
         {id: 2, name: "ماوس", price: 25, image: "ماوس.jpg"},
@@ -52,9 +53,7 @@
         {id: 7, name: "كاميرا", price: 60, image: "كاميرة.jpg"},
         {id: 8, name: "شاحن متنقل", price: 30, image: "شاحن متنقل.jpg"},
         {id: 9, name: "ساعة ذكية", price: 150, image: "ساعة ذكية.jpg"},
-        {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"},
-        {id: 11, name: "كيبورد لاسلكي", price: 50, image: "كيبورد_لاسلكي.jpg"},
-        {id: 12, name: "حقيبة لابتوب", price: 40, image: "حقيبة_لابتوب.jpg"}
+        {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"}
     ];
 
     const productList = document.getElementById('product-list');
