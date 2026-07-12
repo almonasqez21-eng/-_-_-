@@ -4,23 +4,42 @@
     <meta charset="UTF-8">
     <title>متجر التقنية الشامل</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
-        .btn { background: #27ae60; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%; font-size: 16px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 0; }
+        
+        /* قسم الصورة الكبيرة (Hero) */
+        .hero { width: 100%; height: 400px; overflow: hidden; margin-bottom: 30px; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+
+        header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px 5%; margin: 0 5% 30px 5%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .container { padding: 0 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        
+        .card { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .btn { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; }
         .btn:hover { background: #219150; }
+        
+        h3 { color: #333; margin: 10px 0; }
     </style>
 </head>
 <body>
 
+<!-- الصورة الكبيرة -->
+<div class="hero">
+    <img src="الكبيرة .jpg" alt="عروض التقنية">
+</div>
+
 <header>
     <h2>متجر التقنية</h2>
-    <a href="cart.html" style="text-decoration:none; color:#333;">🛒 السلة (<span id="cart-count">0</span>)</a>
+    <a href="cart.html" style="text-decoration:none; color:#333; font-weight:bold;">🛒 السلة (<span id="cart-count">0</span>)</a>
 </header>
 
-<div class="grid" id="product-list"></div>
+<div class="container">
+    <div class="grid" id="product-list"></div>
+</div>
 
 <script>
     const products = [
@@ -33,7 +52,9 @@
         {id: 7, name: "كاميرا", price: 60, image: "كاميرة.jpg"},
         {id: 8, name: "شاحن متنقل", price: 30, image: "شاحن متنقل.jpg"},
         {id: 9, name: "ساعة ذكية", price: 150, image: "ساعة ذكية.jpg"},
-        {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"}
+        {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"},
+        {id: 11, name: "كيبورد لاسلكي", price: 50, image: "كيبورد_لاسلكي.jpg"},
+        {id: 12, name: "حقيبة لابتوب", price: 40, image: "حقيبة_لابتوب.jpg"}
     ];
 
     const productList = document.getElementById('product-list');
@@ -58,9 +79,9 @@
         products.forEach(p => {
             productList.innerHTML += `
                 <div class="card">
-                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
                     <h3>${p.name}</h3>
-                    <p>${p.price} دولار</p>
+                    <p style="color: #666; font-size: 1.2em;">${p.price} دولار</p>
                     <button class="btn" onclick="addToCart(${p.id})">إضافة للسلة</button>
                 </div>
             `;
