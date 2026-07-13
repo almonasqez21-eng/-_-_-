@@ -2,47 +2,62 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>متجر التقنية الشامل</title>
+    <title>Jewelry House Style</title>
+    <!-- استيراد خطوط أنيقة -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 0; }
+        :root { --main-bg: #f9f4f1; --accent: #8b5d5d; --text: #333; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--main-bg); margin: 0; color: var(--text); }
         
-        /* الصورة الكبيرة تم تكبيرها لتصبح 500px */
-        .hero { width: 100%; height: 500px; overflow: hidden; margin-bottom: 30px; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        /* الهيدر الأنيق */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: bold; }
+        nav a { margin: 0 15px; text-decoration: none; color: var(--text); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-        header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px 5%; margin: 0 5% 30px 5%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* قسم الـ Hero (الصورة الكبيرة + النص) */
+        .hero { display: flex; align-items: center; justify-content: center; height: 500px; background: #eee; margin: 20px 80px; border-radius: 20px; overflow: hidden; position: relative; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-text { position: absolute; left: 10%; color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 48px; }
+
+        /* تنسيق الشبكة */
+        .container { max-width: 1200px; margin: auto; padding: 40px; }
+        .section-title { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 40px; font-size: 32px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         
-        .container { padding: 0 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        
-        .card { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); }
-        
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
-        .btn { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; }
-        .btn:hover { background: #219150; }
-        
-        h3 { color: #333; margin: 10px 0; }
+        /* كروت المنتجات */
+        .card { background: white; padding: 20px; text-align: center; border-radius: 10px; transition: 0.3s; border: 1px solid #eee; }
+        .card:hover { border-color: var(--accent); }
+        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; margin-top: 15px; font-family: 'Montserrat', sans-serif; }
     </style>
 </head>
 <body>
 
-<!-- الصورة الكبيرة -->
-<div class="hero">
-    <img src="hero.jpg" alt="عروض التقنية">
-</div>
-
 <header>
-    <h2>متجر التقنية</h2>
-    <a href="cart.html" style="text-decoration:none; color:#333; font-weight:bold;">🛒 السلة (<span id="cart-count">0</span>)</a>
+    <div class="logo">Jewelry House</div>
+    <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#">المتجر</a>
+        <a href="#">اتصل بنا</a>
+    </nav>
+    <a href="cart.html" style="text-decoration:none; color:#333;">🛒 السلة (<span id="cart-count">0</span>)</a>
 </header>
 
+<div class="hero">
+    <img src="hero.jpg" alt="Hero">
+    <div class="hero-text">
+        <h1>Litkovska Collection</h1>
+        <button class="btn">تسوق الآن</button>
+    </div>
+</div>
+
 <div class="container">
+    <h2 class="section-title">تسوق حسب النوع</h2>
     <div class="grid" id="product-list"></div>
 </div>
 
 <script>
-    // تم حذف آخر منتجين من القائمة
     const products = [
         {id: 1, name: "سماعات", price: 99, image: "سماعة.jpg"},
         {id: 2, name: "ماوس", price: 25, image: "ماوس.jpg"},
@@ -56,39 +71,25 @@
         {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"}
     ];
 
-    const productList = document.getElementById('product-list');
-    const cartCountSpan = document.getElementById('cart-count');
-
-    function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cartCountSpan.innerText = cart.length;
-    }
-
-    function addToCart(productId) {
-        const product = products.find(p => p.id === productId);
+    function addToCart(id) { /* منطق السلة يبقى كما هو */
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(product);
+        cart.push(products.find(p => p.id === id));
         localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        alert(product.name + " أضيفت للسلة!");
+        document.getElementById('cart-count').innerText = cart.length;
+        alert("تمت الإضافة!");
     }
 
-    function renderProducts() {
-        productList.innerHTML = '';
-        products.forEach(p => {
-            productList.innerHTML += `
-                <div class="card">
-                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
-                    <h3>${p.name}</h3>
-                    <p style="color: #666; font-size: 1.2em;">${p.price} دولار</p>
-                    <button class="btn" onclick="addToCart(${p.id})">إضافة للسلة</button>
-                </div>
-            `;
-        });
-    }
-
-    renderProducts();
-    updateCartCount();
+    const list = document.getElementById('product-list');
+    products.forEach(p => {
+        list.innerHTML += `
+            <div class="card">
+                <img src="${p.image}" onerror="this.src='https://via.placeholder.com/250'">
+                <h3>${p.name}</h3>
+                <p>${p.price} دولار</p>
+                <button class="btn" onclick="addToCart(${p.id})">أضف للسلة</button>
+            </div>
+        `;
+    });
 </script>
 </body>
 </html>
