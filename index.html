@@ -2,58 +2,53 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Jewelry House Style</title>
-    <!-- استيراد خطوط أنيقة -->
+    <title>متجر التقنية - المنتجات</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root { --main-bg: #f9f4f1; --accent: #8b5d5d; --text: #333; }
+        :root { --main-bg: #f9f4f1; --accent: #27ae60; --text: #333; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--main-bg); margin: 0; color: var(--text); }
         
-        /* الهيدر الأنيق */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(255,255,255,0.9); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: bold; }
-        nav a { margin: 0 15px; text-decoration: none; color: var(--text); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* قسم الـ Hero (الصورة الكبيرة + النص) */
-        .hero { display: flex; align-items: center; justify-content: center; height: 500px; background: #eee; margin: 20px 80px; border-radius: 20px; overflow: hidden; position: relative; }
+        
+        /* تحديث تنسيق قسم الـ Hero لإضافة النص */
+        .hero { height: 500px; width: 100%; position: relative; overflow: hidden; }
         .hero img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-text { position: absolute; left: 10%; color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 48px; }
-
-        /* تنسيق الشبكة */
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.3); color: white; text-align: center; }
+        .hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 10px; }
+        .hero-overlay p { font-size: 20px; font-weight: 300; }
+        
         .container { max-width: 1200px; margin: auto; padding: 40px; }
-        .section-title { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 40px; font-size: 32px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         
-        /* كروت المنتجات */
-        .card { background: white; padding: 20px; text-align: center; border-radius: 10px; transition: 0.3s; border: 1px solid #eee; }
-        .card:hover { border-color: var(--accent); }
-        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; margin-top: 15px; font-family: 'Montserrat', sans-serif; }
+        .card { background: white; padding: 20px; text-align: center; border-radius: 15px; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        
+        .btn { background: var(--accent); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 8px; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn:hover { background: #219150; }
+        
+        h3 { margin: 10px 0; color: #333; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Jewelry House</div>
-    <nav>
-        <a href="#">الرئيسية</a>
-        <a href="#">المتجر</a>
-        <a href="#">اتصل بنا</a>
-    </nav>
-    <a href="cart.html" style="text-decoration:none; color:#333;">🛒 السلة (<span id="cart-count">0</span>)</a>
+    <div class="logo">متجر التقنية</div>
+    <a href="cart.html" style="text-decoration:none; color:#333; font-weight:bold;">🛒 السلة (<span id="cart-count">0</span>)</a>
 </header>
 
 <div class="hero">
-    <img src="hero.jpg" alt="Hero">
-    <div class="hero-text">
-        <h1>Litkovska Collection</h1>
-        <button class="btn">تسوق الآن</button>
+    <img src="hero.jpg" alt="Hero Image">
+    <!-- إضافة النص هنا -->
+    <div class="hero-overlay">
+        <h1>متجر التقنية</h1>
+        <p>أدوات ذكية، لحياة أكثر سهولة</p>
     </div>
 </div>
 
 <div class="container">
-    <h2 class="section-title">تسوق حسب النوع</h2>
+    <h2 style="text-align: center; font-family: 'Playfair Display', serif;">مجموعتنا المختارة</h2>
     <div class="grid" id="product-list"></div>
 </div>
 
@@ -71,25 +66,37 @@
         {id: 10, name: "إضاءة مكتبية", price: 35, image: "إضاءة مكتبية.jpg"}
     ];
 
-    function addToCart(id) { /* منطق السلة يبقى كما هو */
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(products.find(p => p.id === id));
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = cart.length;
-        alert("تمت الإضافة!");
+    function renderProducts() {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
+        products.forEach(p => {
+            productList.innerHTML += `
+                <div class="card">
+                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
+                    <h3>${p.name}</h3>
+                    <p style="font-weight: bold; color: #555;">${p.price} دولار</p>
+                    <button class="btn" onclick="addToCart(${p.id})">إضافة للسلة</button>
+                </div>
+            `;
+        });
     }
 
-    const list = document.getElementById('product-list');
-    products.forEach(p => {
-        list.innerHTML += `
-            <div class="card">
-                <img src="${p.image}" onerror="this.src='https://via.placeholder.com/250'">
-                <h3>${p.name}</h3>
-                <p>${p.price} دولار</p>
-                <button class="btn" onclick="addToCart(${p.id})">أضف للسلة</button>
-            </div>
-        `;
-    });
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        alert(product.name + " أضيفت للسلة!");
+    }
+
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    renderProducts();
+    updateCartCount();
 </script>
 </body>
 </html>
